@@ -60,7 +60,7 @@
                     <h1 class="big-heading" id="title">Super Luxurious 3BHK Villa with Private Pool- EKOSTAY.</h1>
                 </div>
                 <div class="col-lg-6">
-                    <img class="title-img-2" src="{{url_for('static', filename='images/image-1.jpg')}}">
+                    <img class="title-img-2" id="tit-img" src="{{url_for('static', filename='images/image-1.jpg')}}">
                     <!-- <img class="title-img-1" src="images/image-1.jpg" alt="resort-img"> -->
                 </div>
             </div>
@@ -138,65 +138,45 @@
 <!-- Reviews Section -->
  <section class="review" id="review">
   <h1>Review Section</h1>
-  <form id="language-detection" action="/predict" method="post">
-      <!-- <label for="text">Enter text:</label> -->
-      <!-- <textarea name="text" id="text" rows="1" cols="50"></textarea> -->
-      <!-- <input class="form-control" type="text" placeholder="Enter review here…" readonly> -->
-      <form>
-        <!-- <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="email@example.com">
-          </div>
-        </div> -->
-        <div class="form-group row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">Your Review: </label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="Enter Review here..">
-          </div>
+
+        <br>
+        <form id="language-detection" action="/predictandTranslate" method="post">
+            <div class="form-floating">
+                <textarea name="text" id="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">Reviews</label>
+              </div>
+
+            <br>
+            <label class="res" for="lang">Select target language: </label>
+            <select name="lang" id="lang">
+                <div class="btn btn-outline-dark btn-group" role="group" aria-label="Basic outlined example">
+                    <option value="en" type="button" class="btn btn-outline-dark">English</option>
+                    <option value="es" type="button" class="btn btn-outline-dark">Spanish</option>
+                    <option value="fe" type="button" class="btn btn-outline-dark">French</option>
+                    <option value="de" type="button" class="btn btn-outline-dark">German</option>
+                    <option value="hi" type="button" class="btn btn-outline-dark">Hindi</option>
+                    <option value="mr" type="button" class="btn btn-outline-dark">Marathi</option>
+                    <option value="pa" type="button" class="btn btn-outline-dark">Punjabi</option>
+                </div>
+            </select>
+            <button type="submit" class="btn btn-outline-dark" name="action" value="detect">Translate Review</button>
+
+            <!-- <button type="submit" name="action" value="detect">Translate Review</button> -->
+        </form>
+        {% if pred %}
+        <div class="res">
+            <h6 class="res">Deceted Language: {{ pred }}</h6>
         </div>
-      </form>
-      <br>
-      <button type="button" class="btn btn-secondary">Submit</button>
-  </form>
-  <!-- {% if pred %}
-  <div id="result">
-      <p>The entered text is in {{ pred }}</p>
-  </div>
-  {% endif %} -->
-  <form id="translation" action="/translate" method="post">
-      <!-- <label for="text">Enter text to translate: </label>
-      <textarea name="text" id="text" rows="1" cols="50"></textarea> -->
-      <br>
-      <!-- <h4 for="lang">Select target language: </h4>
-      <br>
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-outline-light active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> English
-        </label>
-        <label class="btn btn-outline-light">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Spanish
-        </label>
-        <label class="btn btn-outline-light">
-          <input type="radio" name="options" id="option3" autocomplete="off"> German
-        </label>
-        <label class="btn btn-outline-light">
-            <input type="radio" name="options" id="option4" autocomplete="off"> French
-          </label>
-      </div>
-      <br> -->
-      <!-- <button type="submit" name="action" value="translate">Translate</button> -->
-  </form>
-  {% if translation %}
-  <div id="translation_result">
-      <p>The translated text is: {{ translation }}</p>
-  </div>
-  {% endif %}
-  <!-- {% if translation %}
-  <div id="translation_result">
-      <p>The translated text is: {{ translation }}</p>
-  </div>
-  {% endif %} -->
+        {% endif %}
+    
+           
+        {% if translation %}
+        <div class="res">
+            <h6 class="res">Translated text: {{ translation }}</h6>
+        </div>
+        {% endif %}
+
+
  </section>    
 
 
@@ -208,12 +188,12 @@
 </body>
 
 <footer>
-    <div class="container-fluid">
+    <div class="footer-container">
         <i class="fa-footer fa-brands fa-twitter"></i>
         <i class="fa-footer fa-brands fa-facebook"></i>
         <i class="fa-footer fa-brands fa-instagram"></i>
         <i class="fa-footer fa-solid fa-envelope"></i>  
-        <p>© Copyright airbnb </p>
+        <p>© airbnb </p>
       </div>
 </footer>
 </html>
